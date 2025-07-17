@@ -5,6 +5,7 @@ router.post("/signup", ctrl.signup);
 router.post("/verify", ctrl.verify);
 router.post("/login", ctrl.login);
 router.post("/logout", ctrl.logout);
+router.post("/resend", ctrl.resendOTP);
 router.post("/forgot-password", ctrl.forgotPassword);
 router.post("/reset-password", ctrl.resetPassword);
 

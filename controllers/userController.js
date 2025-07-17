@@ -3,21 +3,30 @@ const bcrypt = require("bcryptjs");
 const checkLimit = require("../utils/limitCheck");
 
 exports.changePassword = async (req, res) => {
-  const { currentPassword, newPassword } = req.body;
-  const fullUser = await User.findById(req.user._id);
+  try {
+    const userId = req.user.id;
+    const { password } = req.body;
 
-  const { allowed, remaining } = checkLimit(fullUser, 'changePasswordAttempts');
-  if (!allowed) return res.status(429).json({ message: `Change password limit reached. Try tomorrow.` });
+    const user = await User.findById(userId);
 
-  if (!await bcrypt.compare(currentPassword, fullUser.password))
-    return res.status(400).json({ message: "Current password incorrect" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-  fullUser.password = await bcrypt.hash(newPassword, 10);
-  await fullUser.save();
+    // Optional: Check if new password is same as current one
+    const isSame = await bcrypt.compare(password, user.password);
+    if (isSame) {
+      return res.status(400).json({ message: "New password must be different from the current password" });
+    }
 
-  res.json({ message: `Password changed successfully. ${remaining} changes left today.` });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    return res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Change Password Error:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
 };
-
 
 
 exports.deleteAccount = async (req, res) => {
@@ -35,7 +44,7 @@ exports.setIncome = async (req, res) => {
   req.user.totalIncome = totalIncome;
   await req.user.save();
 
-  res.json({ message: "Total income updated", totalIncome });
+  res.json({ message: "Total income Lock", totalIncome });
 };
 
 
@@ -69,33 +78,40 @@ exports.deleteExpense = async (req, res) => {
   });
 };
 
-
 exports.getUserProfile = async (req, res) => {
   const user = req.user;
 
-  const totalExpenses = user.expenses.reduce((sum, e) => sum + e.amount, 0);
-  const remaining = user.totalIncome - totalExpenses;
+  const totalIncome = user.totalIncome || 0;
+
+  const expenses = Array.isArray(user.expenses) ? user.expenses : [];
+
+  const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+
+  const remaining = totalIncome - totalExpenses;
 
   const categoryTotals = {
     essentials: 0,
     flexible: 0,
-    "non-essentials": 0
+    "non-essentials": 0,
   };
 
-  user.expenses.forEach(expense => {
+  expenses.forEach((expense) => {
     if (categoryTotals[expense.category] !== undefined) {
       categoryTotals[expense.category] += expense.amount;
     }
   });
 
-  const sortedExpenses = [...user.expenses].sort((a, b) => b.createdAt - a.createdAt);
-
+  const sortedExpenses = [...expenses].sort((a, b) => {
+    const aTime = new Date(a.createdAt).getTime();
+    const bTime = new Date(b.createdAt).getTime();
+    return bTime - aTime;
+  });
   res.json({
-    email: user.email,
-    totalIncome: user.totalIncome,
+    email: user.email || "",
+    totalIncome,
     totalExpenses,
     remaining,
     categoryTotals,
-    expenses: sortedExpenses
+    expenses: sortedExpenses,
   });
 };

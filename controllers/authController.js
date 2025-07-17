@@ -5,10 +5,10 @@ const generateToken = require("../utils/generateToken");
 const checkLimit = require("../utils/limitCheck");
 const bcrypt = require("bcryptjs");
 
-const OTPTemplate = require("../utils/OTPTemplate"); 
+const OTPTemplate = require("../utils/OTPTemplate");
+
 exports.signup = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password)
     return res.status(400).json({ message: "Email and password required" });
 
@@ -80,8 +80,6 @@ exports.verify = async (req, res) => {
   res.json({ message: "Verified & logged in", token });
 };
 
-
-
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -124,12 +122,35 @@ exports.login = async (req, res) => {
 };
 
 
-
 exports.logout = (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logged out successfully" });
 };
+exports.resendOTP = async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: "Email is required" });
 
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ message: "User not found" });
+  if (user.isVerified) return res.status(400).json({ message: "Email already verified go to login page" });
+
+  const { allowed, remaining } = checkLimit(user, "forgotPasswordAttempts");
+  if (!allowed) {
+    return res.status(429).json({ message: "OTP resend limit reached. Try again tomorrow." });
+  }
+
+  const code = generateCode();
+  user.verificationCode = code;
+  user.codeExpires = new Date(Date.now() + 10 * 60 * 1000);
+  await user.save();
+
+  const html = OTPTemplate(email, code, "Verify your Email");
+  await sendEmail(email, "Verify your Email", html);
+
+  res.status(200).json({
+    message: `A new verification code has been sent. Attempts left: ${remaining}`
+  });
+};
 
 
 exports.forgotPassword = async (req, res) => {
@@ -175,10 +196,6 @@ exports.forgotPassword = async (req, res) => {
 
   res.json({ message: `Reset code sent. You have ${remaining} attempts left today.` });
 };
-
-
-
-
 
 exports.resetPassword = async (req, res) => {
   const { email, code, newPassword } = req.body;
