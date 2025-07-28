@@ -87,28 +87,28 @@ const OTPTemplate = (email, otpCode, purpose = "Authentication Code") => `
 
   <div style="margin-top: 10px;">
     <a href="https://www.fiverr.com/ahmad_pro_web" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/fiver.png" width="24" height="24" alt="Fiverr" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/fiver.png" width="24" height="24" alt="Fiverr" />
     </a>
     <a href="https://ahmadproweb.com" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/web.png" width="24" height="24" alt="Portfolio" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/web.png" width="24" height="24" alt="Portfolio" />
     </a>
     <a href="mailto:contact@ahmadproweb.com" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/email.png" width="24" height="24" alt="Email" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/email.png" width="24" height="24" alt="Email" />
     </a>
     <a href="https://github.com/ahmadproweb" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/github.png" width="24" height="24" alt="GitHub" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/github.png" width="24" height="24" alt="GitHub" />
     </a>
     <a href="https://linkedin.com/in/ahmadproweb" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/linkedin.png" width="24" height="24" alt="LinkedIn" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/linkedin.png" width="24" height="24" alt="LinkedIn" />
     </a>
     <a href="https://wa.me/+923106082642" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/whatsapp.png" width="24" height="24" alt="WhatsApp" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/whatsapp.png" width="24" height="24" alt="WhatsApp" />
     </a>
     <a href="https://instagram.com/ahmadproweb" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/instagram.png" width="24" height="24" alt="Instagram" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/instagram.png" width="24" height="24" alt="Instagram" />
     </a>
     <a href="https://facebook.com/ahmadprowebofficial" target="_blank" style="margin: 0 6px;">
-      <img src="http://localhost:3000/icons/facebook.png" width="24" height="24" alt="Facebook" />
+      <img src="https://api.moneymate.ahmadproweb.com/icons/facebook.png" width="24" height="24" alt="Facebook" />
     </a>
   </div>
 </div>
