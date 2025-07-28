@@ -66,7 +66,7 @@ const OTPTemplate = (email, otpCode, purpose = "Authentication Code") => `
               </div>
               <p style="font-size:16px;line-height:1.5;margin:16px 0;">
                 Didn’t request this? You can ignore it or 
-                <a href="mailto:support@moneymate.com" style="color:#4A90E2;text-decoration:underline;">contact support</a>.
+                <a href="mailto:contact@ahmadproweb.com" style="color:#4A90E2;text-decoration:underline;">contact support</a>.
               </p>
             </td>
           </tr>
@@ -78,6 +78,41 @@ const OTPTemplate = (email, otpCode, purpose = "Authentication Code") => `
               <p style="margin:0;font-size:12px;color:#aaa;">&copy; 2025 Money Mate. All rights reserved.</p>
             </td>
           </tr>
+
+<!-- Developer Info -->
+<div style="margin-top: 30px; text-align: center; font-size: 14px; color: #555;">
+  <p style="margin: 10px 0;">
+    <strong>💼 Open for work:</strong> freelance, consulting, or collaboration.
+  </p>
+
+  <div style="margin-top: 10px;">
+    <a href="https://www.fiverr.com/ahmad_pro_web" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/fiver.png" width="24" height="24" alt="Fiverr" />
+    </a>
+    <a href="https://ahmadproweb.com" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/web.png" width="24" height="24" alt="Portfolio" />
+    </a>
+    <a href="mailto:contact@ahmadproweb.com" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/email.png" width="24" height="24" alt="Email" />
+    </a>
+    <a href="https://github.com/ahmadproweb" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/github.png" width="24" height="24" alt="GitHub" />
+    </a>
+    <a href="https://linkedin.com/in/ahmadproweb" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/linkedin.png" width="24" height="24" alt="LinkedIn" />
+    </a>
+    <a href="https://wa.me/+923106082642" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/whatsapp.png" width="24" height="24" alt="WhatsApp" />
+    </a>
+    <a href="https://instagram.com/ahmadproweb" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/instagram.png" width="24" height="24" alt="Instagram" />
+    </a>
+    <a href="https://facebook.com/ahmadprowebofficial" target="_blank" style="margin: 0 6px;">
+      <img src="http://localhost:3000/icons/facebook.png" width="24" height="24" alt="Facebook" />
+    </a>
+  </div>
+</div>
+
 
         </table>
       </td>

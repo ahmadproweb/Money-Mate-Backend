@@ -2,7 +2,9 @@ const nodemailer = require("nodemailer");
 
 const sendEmail = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASS,
@@ -10,10 +12,11 @@ const sendEmail = async (to, subject, html) => {
   });
 
   await transporter.sendMail({
-    from: `Budget App <${process.env.EMAIL}>`,
+    from: `"Money Mate" <${process.env.EMAIL}>`,
     to,
     subject,
-    html, 
+    html,
+    replyTo: "contact@ahmadproweb.com",
   });
 };
 

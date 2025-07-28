@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const path = require('path');
 const connectDb = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -22,7 +23,7 @@ app.use(
   })
 );
 connectDb();
-
+app.use('/icons', express.static(path.join(__dirname, 'public/icons')));
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
