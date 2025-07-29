@@ -63,4 +63,4 @@ app.post('/webhook', (req, res) => {
     }, 100);
 });
 
-app.listen(port, '127.0.0.1' ,  () => console.log(`${port}`));
+app.listen(port, '127.0.0.1' ,  () => console.log(`Server is running on port ${port}`));
