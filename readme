@@ -1,5 +1,13 @@
-MONGO_DB_URL=mongodb://localhost:27017
-PORT=3000
-JWT_SECRET=your_jwt_secret
-EMAIL=ahmaddeveloper122@gmail.com
-EMAIL_PASS=lysf dsjp vxlq lojw
+MONGO_DB_URL=mongodb://127.0.0.1:27017
+PORT=1234
+JWT_SECRET=this_is_a_secret_key
+EMAIL=contact@ahmadproweb.com
+EMAIL_PASS=Developer786@
+
+#!/bin/bash
+cd /var/www/money-mate-backend
+git pull origin main
+npm install --force
+
+pm2 restart 11 
+pm2 save
