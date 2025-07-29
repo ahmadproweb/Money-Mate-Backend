@@ -26,7 +26,6 @@ app.use(
 
 connectDb();
 
-// Root route
 app.get('/', (req, res) => {
     res.json({ 
         message: 'Money Mate API Server', 
@@ -35,34 +34,33 @@ app.get('/', (req, res) => {
     });
 });
 
-// Test route
 app.get('/test', (req, res) => {
     res.json({ message: 'Server is working!', timestamp: new Date().toISOString() });
 });
 
-// Static files
 app.use('/icons', express.static(path.join(__dirname, 'public/icons')));
 
-// API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
-// Webhook route
 app.post('/webhook', (req, res) => {
     console.log('🔔 Webhook received at:', new Date().toISOString());
-    console.log('📦 Request body:', req.body);
-    
-    exec('sh /var/www/money-mate-backend/deploy.sh', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`❌ Exec Error: ${error.message}`);
-            return res.status(500).json({ error: 'Script execution failed', details: error.message });
-        }
-        if (stderr) {
-            console.warn(`⚠️ Stderr: ${stderr}`);
-        }
-        console.log(`✅ Stdout: ${stdout}`);
-        res.status(200).json({ message: 'Deploy executed successfully', output: stdout });
+
+    res.status(200).json({
+        message: 'Webhook received successfully',
+        timestamp: new Date().toISOString()
     });
+
+    setTimeout(() => {
+        console.log('Starting deployment...');
+        exec('sh /var/www/money-mate-backend/deploy.sh', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`❌ Deploy Error: ${error.message}`);
+            } else {
+                console.log(`✅ Deploy Success: ${stdout}`);
+            }
+        });
+    }, 100);
 });
 
-app.listen(port, () => console.log(`🚀 Server is running on port ${port}`));
+app.listen(port, '127.0.0.1' ,  () => console.log(`Server is running on port ${port}`));
