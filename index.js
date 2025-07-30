@@ -26,17 +26,17 @@ app.use(
 
 connectDb();
 
-app.get('/', (req, res) => {
-    res.json({ 
-        message: 'Money Mate API Server', 
-        status: 'running',
-        timestamp: new Date().toISOString() 
-    });
-});
+// app.get('/', (req, res) => {
+//     res.json({ 
+//         message: 'Money Mate API Server', 
+//         status: 'running',
+//         timestamp: new Date().toISOString() 
+//     });
+// });
 
-app.get('/test', (req, res) => {
-    res.json({ message: 'Server is working!', timestamp: new Date().toISOString() });
-});
+// app.get('/test', (req, res) => {
+//     res.json({ message: 'Server is working!', timestamp: new Date().toISOString() });
+// });
 
 app.use('/icons', express.static(path.join(__dirname, 'public/icons')));
 
